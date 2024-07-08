@@ -135,6 +135,41 @@ class PhonoBase:
                                                 self._supercell_matrix,
                                                 primitive_matrix=self._primitive_matrix,
                                                 band_resolution=30)
+      
+
+        ### This is my addition
+
+
+        # Write frequencies to file
+        out_file = open('phonolammps_frequencies.dat', 'w+')
+
+        out_file.write("Frequencies " + str(len(_bands[2])) + "x" + str(len(_bands[2][0])) + "x" + str(len(_bands[2][0][0])) + "\n\n")
+
+        for counter_1 in range(len(_bands[2][0])):
+            for counter_2 in range(len(_bands[2])):
+                for counter_3 in range(len(_bands[2][0][0])):
+                    out_file.write(str(_bands[2][counter_2][counter_1][counter_3]) + "\t")
+                out_file.write("\t")
+            out_file.write("\n")
+
+        out_file.close()
+
+
+        # Write distances in reciprocal space to file
+        out_file = open('phonolammps_distances.dat', 'w+')
+
+        out_file.write("Distances " + str(len(_bands[1])) + "x" + str(len(_bands[1][0])) + "\n\n")
+
+        for counter_1 in range(len(_bands[1][0])):
+            for counter_2 in range(len(_bands[1])):
+                out_file.write(str(_bands[1][counter_2][counter_1]) + "\t")
+            out_file.write("\n")
+
+        out_file.close()
+
+
+        ### This is the original code again
+      
 
         for i, freq in enumerate(_bands[1]):
             plt.plot(_bands[1][i], _bands[2][i], color='r')
